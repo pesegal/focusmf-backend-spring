@@ -1,3 +1,31 @@
+type Query {
+  allUsers: [User!]!
+  findListsByUser: [List!]!
+  findUserByEmail(userEmail: String!): User!
+  findUserById(userId: String!): User!
+  getAllTaskActions: [TaskAction!]!
+  getProjects: [Project!]!
+  getTasks: [Task!]!
+  hello: HelloWorld!
+  helloAdmin: HelloWorld!
+  helloBasic: HelloWorld!
+  loginUser(loginData: AuthInput!): AuthToken!
+}
+
+type Mutation {
+  createList(name: String!, position: Float!): List!
+  createProject(colorName: String!, name: String!): Project!
+  createTask(createInput: CreateTaskInput!): Task!
+  createTaskAction(taskAction: CreateTaskAction!): TaskAction!
+  createUser(userData: UserInput!): AuthToken!
+  deleteList(id: String!): List!
+  deleteProject(projectInput: ProjectInput!): Project!
+  deleteTask(taskId: String!): Task!
+  updateList(id: String!, name: String!, position: Float!): List!
+  updateProject(projectInput: ProjectInput!): Project!
+  updateTask(updateInput: UpdateTaskInput!): Task!
+}
+
 """Input to use for login."""
 input AuthInput {
   """User's Email"""
@@ -53,59 +81,10 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
-"""User's identified educational achievement level."""
-enum Education {
-  AssociatesDegree
-  BachelorsDegree
-  DoctoralDegree
-  HighSchoolDiploma
-  LessThanHighSchool
-  MastersDegree
-  NoDegree
-  ProfessionalDegree
-}
-
-"""User's identified level of employment."""
-enum Employement {
-  EmployedFull
-  EmployedPart
-  EmployedSelf
-  Homemaker
-  Military
-  Retired
-  Student
-  Unemployed
-}
-
-"""User's identified ethnic ancestry."""
-enum EthnicOrigin {
-  AsianPacificIslander
-  Black
-  HispanicLatino
-  NativeAmerica
-  Other
-  White
-}
-
-"""User's identified gender."""
-enum Gender {
-  Female
-  Male
-  Other
-}
-
 type HelloWorld {
   message: String!
 }
 
-"""User's identified household status."""
-enum Household {
-  Divorced
-  Married
-  Separated
-  Unmarried
-  Widowed
-}
 
 """A List allows a User to apply states to Tasks."""
 type List {
@@ -116,19 +95,7 @@ type List {
   user: User!
 }
 
-type Mutation {
-  createList(name: String!, position: Float!): List!
-  createProject(colorName: String!, name: String!): Project!
-  createTask(createInput: CreateTaskInput!): Task!
-  createTaskAction(taskAction: CreateTaskAction!): TaskAction!
-  createUser(userData: UserInput!): AuthToken!
-  deleteList(id: String!): List!
-  deleteProject(projectInput: ProjectInput!): Project!
-  deleteTask(taskId: String!): Task!
-  updateList(id: String!, name: String!, position: Float!): List!
-  updateProject(projectInput: ProjectInput!): Project!
-  updateTask(updateInput: UpdateTaskInput!): Task!
-}
+
 
 type Permission {
   id: ID!
@@ -162,19 +129,7 @@ input ProjectInput {
   name: String
 }
 
-type Query {
-  allUsers: [User!]!
-  findListsByUser: [List!]!
-  findUserByEmail(userEmail: String!): User!
-  findUserById(userId: String!): User!
-  getAllTaskActions: [TaskAction!]!
-  getProjects: [Project!]!
-  getTasks: [Task!]!
-  hello: HelloWorld!
-  helloAdmin: HelloWorld!
-  helloBasic: HelloWorld!
-  loginUser(loginData: AuthInput!): AuthToken!
-}
+
 
 """
 Tasks represent a specific goal or item, that you can track your work against.
@@ -233,15 +188,10 @@ enum Usage {
 """A Focus.mf User."""
 type User {
   dateofbirth: DateTime
-  education: Education
 
   """The users email. Standard email requirements."""
   email: String!
-  employment: Employement
-  ethnic_origin: EthnicOrigin
   first_name: String
-  gender: Gender
-  household: Household
   id: ID!
   last_name: String
   lists: [List!]!
@@ -256,17 +206,13 @@ type User {
 input UserInput {
   """Needs to be a valid date string."""
   dateofbirth: DateTime
-  education: Education
+
 
   """Needs to be an email between 6 and 320 chars."""
   email: String!
-  employment: Employement
-  ethnic_origin: EthnicOrigin
 
   """Max Length 50 chars."""
   first_name: String
-  gender: Gender
-  household: Household
 
   """Max Length 50 chars."""
   last_name: String
