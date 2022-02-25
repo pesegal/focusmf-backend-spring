@@ -8,6 +8,7 @@ plugins {
 	kotlin("plugin.jpa") version  "1.4.32"
 }
 
+
 group = "mf.focus"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11

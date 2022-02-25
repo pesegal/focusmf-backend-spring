@@ -26,10 +26,20 @@ class Project(
         @Column
         val name: String,
 
-        @Column(name="`userId`")
-        val userId: UUID,
+        @ManyToOne
+        @JoinColumn(name = "`userId`")
+        val user: User,
 
-        @Column(name="`colorId`")
-        val colorId: UUID
+        @ManyToOne
+        @JoinColumn(name = "`colorId`")
+        val color: Color,
 
+        @ManyToMany
+        @JoinTable(
+                name = "project_tasks_task",
+                joinColumns = [JoinColumn(name = "`projectId`")],
+                inverseJoinColumns = [JoinColumn(name = "`taskId`")]
+
+        )
+        val tasks: List<Task>
 )
